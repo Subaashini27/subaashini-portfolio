@@ -94,4 +94,4 @@ project/
 
 **If you see compilation errors:**
 - Make sure all dependencies are installed
-- Check the console for specific error messages 
+- Check the console for specific error messages
