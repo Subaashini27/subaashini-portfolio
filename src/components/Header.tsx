@@ -76,8 +76,8 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
             </div>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          {/* Desktop Navigation (show from md and up) */}
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
               <motion.button
                 key={item.id}
@@ -122,11 +122,11 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button (hide from md and up) */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
+            className={`md:hidden p-2 rounded-lg transition-colors duration-200 ${
               darkMode ? 'text-gray-300 hover:text-white hover:bg-gray-800' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -134,13 +134,13 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
           </motion.button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation (only on small screens) */}
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden mt-4 space-y-2 pb-4"
+            className="md:hidden mt-4 space-y-2 pb-4"
           >
             {navItems.map((item) => (
               <motion.button
