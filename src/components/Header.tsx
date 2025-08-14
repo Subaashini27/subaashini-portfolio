@@ -77,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
           </motion.div>
 
           {/* Desktop Navigation (show from md and up) */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-4 ml-6 lg:ml-10">
             {navItems.map((item) => (
               <motion.button
                 key={item.id}
