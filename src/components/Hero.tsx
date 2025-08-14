@@ -386,14 +386,6 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            <motion.span 
-              className="text-base text-neutral-500 dark:text-neutral-400 font-semibold tracking-wide"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              Explore my work
-            </motion.span>
-            
             <motion.button
               onClick={scrollToAbout}
               whileHover={{ scale: 1.2, y: -3 }}
