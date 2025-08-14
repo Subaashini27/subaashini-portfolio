@@ -15,7 +15,7 @@ const Skills: React.FC = () => {
         { name: "Tailwind CSS", level: 85, experience: "2+ years" },
         { name: "Responsive Design", level: 90, experience: "2+ years" }
       ],
-      color: "blue",
+      color: "primary",
       description: "Modern frontend technologies for building interactive user interfaces"
     },
     {
@@ -28,7 +28,7 @@ const Skills: React.FC = () => {
         { name: "RESTful APIs", level: 80, experience: "1+ year" },
         { name: "Authentication", level: 75, experience: "1+ year" }
       ],
-      color: "green",
+      color: "secondary",
       description: "Server-side development and API design"
     },
     {
@@ -41,7 +41,7 @@ const Skills: React.FC = () => {
         { name: "Docker", level: 70, experience: "6+ months" },
         { name: "Linux/Unix", level: 75, experience: "1+ year" }
       ],
-      color: "orange",
+      color: "primary",
       description: "Database management and development operations"
     },
     {
@@ -54,7 +54,7 @@ const Skills: React.FC = () => {
         { name: "Data Analysis", level: 85, experience: "2+ years" },
         { name: "Model Deployment", level: 75, experience: "1+ year" }
       ],
-      color: "purple",
+      color: "secondary",
       description: "AI/ML applications and intelligent system development"
     }
   ];
@@ -112,29 +112,17 @@ const Skills: React.FC = () => {
 
   const getColorClasses = (color: string) => {
     const colorMap = {
-      blue: {
-        bg: "from-blue-500 to-blue-600",
-        text: "text-blue-600 dark:text-blue-400",
-        bar: "bg-gradient-to-r from-blue-500 to-blue-600",
-        accent: "bg-blue-50 dark:bg-blue-900/20"
+      primary: {
+        bg: "from-primary-500 to-primary-600",
+        text: "text-primary-600 dark:text-primary-400",
+        bar: "bg-gradient-to-r from-primary-500 to-primary-600",
+        accent: "bg-primary-50 dark:bg-primary-900/20"
       },
-      green: {
-        bg: "from-green-500 to-green-600", 
-        text: "text-green-600 dark:text-green-400",
-        bar: "bg-gradient-to-r from-green-500 to-green-600",
-        accent: "bg-green-50 dark:bg-green-900/20"
-      },
-      purple: {
-        bg: "from-purple-500 to-purple-600",
-        text: "text-purple-600 dark:text-purple-400", 
-        bar: "bg-gradient-to-r from-purple-500 to-purple-600",
-        accent: "bg-purple-50 dark:bg-purple-900/20"
-      },
-      orange: {
-        bg: "from-orange-500 to-orange-600",
-        text: "text-orange-600 dark:text-orange-400",
-        bar: "bg-gradient-to-r from-orange-500 to-orange-600",
-        accent: "bg-orange-50 dark:bg-orange-900/20"
+      secondary: {
+        bg: "from-secondary-500 to-secondary-600", 
+        text: "text-secondary-600 dark:text-secondary-400",
+        bar: "bg-gradient-to-r from-secondary-500 to-secondary-600",
+        accent: "bg-secondary-50 dark:bg-secondary-900/20"
       }
     };
     return colorMap[color as keyof typeof colorMap];
@@ -152,14 +140,14 @@ const Skills: React.FC = () => {
         >
           {/* Professional Header */}
           <motion.div variants={itemVariants} className="text-center mb-20">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full mb-6">
-              <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Technical Expertise</span>
+            <div className="inline-flex items-center px-4 py-2 bg-primary-50 dark:bg-primary-900/20 rounded-full mb-6">
+              <span className="text-primary-600 dark:text-primary-400 font-semibold text-sm">Technical Expertise</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
               Skills & 
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Proficiency</span>
+              <span className="bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 bg-clip-text text-transparent"> Proficiency</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 mx-auto rounded-full mb-8"></div>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Comprehensive technical skills developed through hands-on projects and continuous learning
             </p>
@@ -172,7 +160,7 @@ const Skills: React.FC = () => {
                 key={index}
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+                className="bg-gradient-to-br from-white to-primary-50 dark:from-gray-800 dark:to-primary-900/20 p-8 rounded-2xl shadow-lg shadow-primary-500/10 hover:shadow-xl hover:shadow-primary-500/20 transition-all duration-300 border border-primary-100 dark:border-primary-700/30"
               >
                 {/* Category Header */}
                 <div className="flex items-center mb-6">
@@ -241,10 +229,10 @@ const Skills: React.FC = () => {
                   key={index}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group"
+                  className="bg-gradient-to-br from-white to-secondary-50 dark:from-gray-800 dark:to-secondary-900/20 p-6 rounded-xl shadow-lg shadow-secondary-500/10 border border-secondary-100 dark:border-secondary-700/30 text-center group"
                 >
                   <div className="mb-3">
-                    <div className="text-blue-600 dark:text-blue-400 mx-auto group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                    <div className="text-secondary-600 dark:text-secondary-400 mx-auto group-hover:scale-110 transition-transform duration-300 flex justify-center">
                       {tool.icon}
                     </div>
                   </div>
@@ -275,7 +263,7 @@ const Skills: React.FC = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 p-8 rounded-2xl border border-blue-200 dark:border-blue-700/50"
+                  className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/10 dark:to-secondary-900/10 p-8 rounded-2xl border border-primary-200 dark:border-primary-700/30 shadow-lg shadow-primary-500/5"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>

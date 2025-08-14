@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Linkedin, Github, MessageCircle, Mail, Phone, MapPin, Calendar, Clock } from 'lucide-react';
+import { Send, Linkedin, Github, MessageCircle, Mail } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    company: '',
-    subject: '',
+    projectType: '',
+    budgetRange: '',
+    deadline: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -27,69 +29,49 @@ const Contact: React.FC = () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     // Create professional mailto link
-    const subject = encodeURIComponent(formData.subject || 'Software Development Opportunity - Portfolio Contact');
+    const subject = encodeURIComponent('Freelance Project Inquiry - ' + (formData.projectType || 'General'));
     const body = encodeURIComponent(
-      `Dear Subaashini,\n\nName: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || 'Not specified'}\n\nMessage:\n${formData.message}\n\nI am interested in discussing software development opportunities, internships, or collaboration on technical projects.\n\nBest regards,\n${formData.name}`
+      `Hi Subaashini,\n\nI'd like to discuss a freelance project with you.\n\nProject Details:\nName: ${formData.name}\nEmail: ${formData.email}\nProject Type: ${formData.projectType || 'Not specified'}\nBudget Range: ${formData.budgetRange || 'To be discussed'}\nDeadline: ${formData.deadline || 'Flexible'}\n\nMessage:\n${formData.message}\n\nLooking forward to hearing from you!\n\nBest regards,\n${formData.name}`
     );
     const mailtoLink = `mailto:subaashini2701@gmail.com?subject=${subject}&body=${body}`;
     
     window.location.href = mailtoLink;
     
     setIsSubmitting(false);
-    setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+    setIsSubmitted(true);
+    setFormData({ name: '', email: '', projectType: '', budgetRange: '', deadline: '', message: '' });
+    
+    // Reset success message after 5 seconds
+    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
-  const contactInfo = [
-    {
-      icon: <Mail className="text-blue-600" size={24} />,
-      title: "Email",
-      value: "subaashini2701@gmail.com",
-      link: "mailto:subaashini2701@gmail.com",
-      description: "Professional inquiries welcome"
-    },
-    {
-      icon: <Phone className="text-green-600" size={24} />,
-      title: "WhatsApp",
-      value: "+60 16-724 5698",
-      link: "https://wa.me/60167245698",
-      description: "Quick response available"
-    },
-    {
-      icon: <MapPin className="text-purple-600" size={24} />,
-      title: "Location",
-      value: "Alor Gajah, Malacca",
-      link: null,
-      description: "Malaysia • Open to relocation"
-    },
-    {
-      icon: <Clock className="text-orange-600" size={24} />,
-      title: "Availability",
-      value: "Immediate",
-      link: null,
-      description: "Ready for software development roles"
-    }
-  ];
-
   const socialLinks = [
+    {
+      icon: <Mail size={24} />,
+      name: "Email",
+      url: "mailto:subaashini2701@gmail.com",
+      color: "bg-red-600 hover:bg-red-700",
+      description: "Direct email"
+    },
     {
       icon: <Linkedin size={24} />,
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/subaashini-mohanasundaram-0a7b28293",
-      color: "bg-blue-600 hover:bg-blue-700",
+      color: "bg-primary-600 hover:bg-primary-700",
       description: "Professional Network & Experience"
     },
     {
       icon: <Github size={24} />,
       name: "GitHub",
       url: "https://github.com/Subaashini27",
-      color: "bg-gray-800 hover:bg-gray-900",
+      color: "bg-secondary-800 hover:bg-secondary-900",
       description: "Code Repository & Projects"
     },
     {
       icon: <MessageCircle size={24} />,
       name: "WhatsApp",
       url: "https://wa.me/60167245698",
-      color: "bg-green-500 hover:bg-green-600",
+      color: "bg-secondary-500 hover:bg-secondary-600",
       description: "Direct Communication"
     }
   ];
@@ -125,14 +107,14 @@ const Contact: React.FC = () => {
         >
           {/* Professional Header */}
           <motion.div variants={itemVariants} className="text-center mb-20">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full mb-6">
-              <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Let's Collaborate</span>
+            <div className="inline-flex items-center px-4 py-2 bg-primary-50 dark:bg-primary-900/20 rounded-full mb-6">
+              <span className="text-primary-600 dark:text-primary-400 font-semibold text-sm">Let's Collaborate</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
               Ready to Code 
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> The Future Together</span>
+              <span className="bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 bg-clip-text text-transparent"> The Future Together</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 mx-auto rounded-full mb-8"></div>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Passionate about creating innovative software solutions and contributing to meaningful projects. 
               Let's discuss how my technical skills can drive your next development initiative.
@@ -140,50 +122,8 @@ const Contact: React.FC = () => {
           </motion.div>
 
           <div className="grid lg:grid-cols-12 gap-12">
-            {/* Contact Information */}
+            {/* Social + Availability column */}
             <motion.div variants={itemVariants} className="lg:col-span-5 space-y-8">
-              {/* Contact Details */}
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-                  Contact Information
-                </h3>
-                <div className="space-y-6">
-                  {contactInfo.map((info, index) => (
-                    <motion.div
-                      key={index}
-                      whileHover={{ x: 5 }}
-                      className="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-                    >
-                      <div className="mr-4 p-2 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
-                        {info.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          {info.title}
-                        </h4>
-                        {info.link ? (
-                          <a
-                            href={info.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                          >
-                            {info.value}
-                          </a>
-                        ) : (
-                          <p className="text-gray-900 dark:text-white font-medium">
-                            {info.value}
-                          </p>
-                        )}
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                          {info.description}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
               {/* Social Links */}
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
@@ -220,10 +160,10 @@ const Contact: React.FC = () => {
               {/* Availability Status */}
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200 dark:border-green-700"
+                className="bg-gradient-to-br from-secondary-50 to-primary-50 dark:from-secondary-900/20 dark:to-primary-900/20 p-6 rounded-xl border border-secondary-200 dark:border-secondary-700/30"
               >
                 <div className="flex items-center mb-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-secondary-500 rounded-full mr-3 animate-pulse"></div>
                   <h4 className="font-semibold text-gray-900 dark:text-white">
                     Available for Opportunities
                   </h4>
@@ -237,16 +177,28 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <motion.div variants={itemVariants} className="lg:col-span-7">
-              <div className="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/10 dark:to-secondary-900/10 p-8 rounded-2xl border border-primary-200 dark:border-primary-700/30 shadow-lg shadow-primary-500/5">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  Send a Message
+                  Start a Project
                 </h3>
+                
+                {isSubmitted && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-6 p-4 bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/30 rounded-lg"
+                  >
+                    <p className="text-green-800 dark:text-green-300 font-medium">
+                      Thanks! I'll reply within 24 hours.
+                    </p>
+                  </motion.div>
+                )}
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Full Name *
+                        Name *
                       </label>
                       <input
                         type="text"
@@ -255,14 +207,14 @@ const Contact: React.FC = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200"
-                        placeholder="Your full name"
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200"
+                        placeholder="Your name"
                       />
                     </div>
                     
                     <div>
                       <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Email Address *
+                        Email *
                       </label>
                       <input
                         type="email"
@@ -279,34 +231,61 @@ const Contact: React.FC = () => {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Company/Organization
+                      <label htmlFor="projectType" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        Project Type *
                       </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
+                      <select
+                        id="projectType"
+                        name="projectType"
+                        required
+                        value={formData.projectType}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200"
-                        placeholder="Your company name"
-                      />
+                      >
+                        <option value="">Select project type</option>
+                        <option value="Web App Development">Web App Development</option>
+                        <option value="Dashboard & Data Visualization">Dashboard & Data Visualization</option>
+                        <option value="AI Features">AI Features</option>
+                        <option value="Fix & Improve">Fix & Improve</option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
                     
                     <div>
-                      <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Subject
+                      <label htmlFor="budgetRange" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        Budget Range
                       </label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
+                      <select
+                        id="budgetRange"
+                        name="budgetRange"
+                        value={formData.budgetRange}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200"
-                        placeholder="Internship Opportunity"
-                      />
+                      >
+                        <option value="">Select budget range</option>
+                        <option value="RM800-1,500">RM800-1,500 (Landing page)</option>
+                        <option value="RM1,800-4,500">RM1,800-4,500 (Dashboard)</option>
+                        <option value="RM3,500-7,000">RM3,500-7,000 (MVP app)</option>
+                        <option value="RM1,200-3,000">RM1,200-3,000 (AI add-on)</option>
+                        <option value="RM200-500/mo">RM200-500/mo (Maintenance)</option>
+                        <option value="Custom">Custom budget</option>
+                      </select>
                     </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="deadline" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Deadline
+                    </label>
+                    <input
+                      type="text"
+                      id="deadline"
+                      name="deadline"
+                      value={formData.deadline}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200"
+                      placeholder="e.g., 2 weeks, End of March, Flexible"
+                    />
                   </div>
                   
                   <div>
@@ -320,8 +299,8 @@ const Contact: React.FC = () => {
                       rows={6}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200 resize-none"
-                      placeholder="Tell me about the opportunity, your team, or how we can work together..."
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200 resize-none"
+                      placeholder="Tell me about your project, goals, and any specific requirements..."
                     />
                   </div>
                   
@@ -330,56 +309,21 @@ const Contact: React.FC = () => {
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                   >
                     {isSubmitting ? (
                       <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2" />
                     ) : (
                       <Send size={20} className="mr-2" />
                     )}
-                    {isSubmitting ? 'Sending Message...' : 'Send Message'}
+                    {isSubmitting ? 'Sending...' : 'Request a Quote'}
                   </motion.button>
                 </form>
               </div>
             </motion.div>
           </div>
 
-          {/* Call to Action */}
-          <motion.div 
-            variants={itemVariants}
-            className="mt-20 text-center"
-          >
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 p-12 rounded-2xl border border-blue-200 dark:border-blue-700">
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                Ready to Make an Impact?
-              </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-                I'm excited to bring innovative thinking, technical expertise, and fresh perspectives 
-                to your team. Let's create something extraordinary together.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.a
-                  href="mailto:subaashini2701@gmail.com"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
-                >
-                  <Mail size={20} className="mr-2" />
-                  Email Me Directly
-                </motion.a>
-                <motion.a
-                  href="/Subaashini_Resume.pdf"
-                  download="Subaashini_Mohanasundaram_Resume.pdf"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200"
-                >
-                  <Calendar size={20} className="mr-2" />
-                  Download Resume
-                </motion.a>
-              </div>
-            </div>
-          </motion.div>
+          {/* Removed extra CTA block to avoid redundancy with hero */}
         </motion.div>
       </div>
     </section>

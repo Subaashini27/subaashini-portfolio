@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -15,9 +15,8 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
     { id: 'awards', label: 'Awards' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'services', label: 'Services' },
   ];
 
   useEffect(() => {
@@ -50,14 +49,7 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
     setIsOpen(false);
   };
 
-  const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/Subaashini_Resume.pdf'; // <-- use the correct filename
-    link.download ='Subaashini_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // Removed resume download here to avoid duplication with hero
 
   return (
     <motion.header
@@ -66,12 +58,10 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? darkMode 
-            ? 'bg-gray-900/95 backdrop-blur-md border-gray-700 shadow-lg' 
-            : 'bg-white/95 backdrop-blur-md border-gray-200 shadow-lg'
-          : darkMode
-            ? 'bg-transparent border-transparent'
-            : 'bg-transparent border-transparent'
-      } border-b`}
+            ? 'bg-gray-900/80 backdrop-blur-xl border-gray-800 shadow-lg' 
+            : 'bg-white/80 backdrop-blur-xl border-gray-200 shadow-lg'
+          : 'bg-transparent border-transparent'
+      } border-b before:content-[''] before:absolute before:inset-x-0 before:bottom-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary-500/40 before:to-transparent`}
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
@@ -94,23 +84,42 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
                 onClick={() => scrollToSection(item.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`relative px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
+                className={`group relative px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
                   activeSection === item.id
                     ? 'text-blue-600 dark:text-blue-400'
                     : darkMode
                     ? 'text-gray-300 hover:text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 {item.label}
+                {/* active background pill */}
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="activeSection"
-                    className="absolute inset-0 bg-blue-100 dark:bg-blue-900/30 rounded-lg -z-10"
+                    className="absolute inset-0 bg-blue-100/70 dark:bg-blue-900/30 rounded-lg -z-10"
                   />
                 )}
+                {/* animated underline */}
+                <span
+                  className={`pointer-events-none absolute left-3 right-3 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-transform duration-300 group-hover:scale-x-100 ${
+                    activeSection === item.id ? 'scale-x-100' : ''
+                  }`}
+                />
               </motion.button>
             ))}
+            
+            {/* Right-side actions */}
+            <div className="ml-4 pl-4 border-l border-gray-200 dark:border-gray-700">
+              <motion.button
+                onClick={() => scrollToSection('contact')}
+                whileHover={{ y: -2, scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold shadow-soft hover:shadow-medium"
+              >
+                Contact
+              </motion.button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -149,6 +158,14 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
                 {item.label}
               </motion.button>
             ))}
+            
+            <motion.button
+              onClick={() => scrollToSection('contact')}
+              whileTap={{ scale: 0.97 }}
+              className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold"
+            >
+              Contact
+            </motion.button>
           </motion.div>
         )}
       </nav>

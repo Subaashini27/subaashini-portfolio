@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, X, Play, Eye, Code, Calendar, Users, Award } from 'lucide-react';
+import { ExternalLink, Github, X, Play, Eye, Code, Calendar, Users, Award, Filter, Trophy, Star } from 'lucide-react';
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
-
+  const [activeFilter, setActiveFilter] = useState('All');
+  
+  const filters = ['All', 'AI/ML', 'Web Development', 'Sustainability', 'Mobile'];
   const projects = [
     {
       id: 1,
       title: "AI-Powered Sports Injury Prevention System",
       subtitle: "Final Year Project • Full-Stack AI Application",
       description: "Real-time computer vision application for sports injury prediction using TensorFlow.js and MediaPipe, featuring separate dashboards for athletes and coaches.",
+      outcome: "Real-time pose analysis; 92% precision on demo set",
+      badges: [],
       fullDescription: "A comprehensive full-stack application that combines modern web technologies with AI/ML capabilities. Built with React.js frontend, Node.js/Express.js backend, and MySQL database. Implements real-time pose estimation using MediaPipe MoveNet and TensorFlow.js for browser-based AI inference. Features include user authentication, role-based access control, real-time data visualization, and predictive analytics dashboards.",
       tech: ["React.js", "TypeScript", "Node.js", "Express.js", "MySQL", "TensorFlow.js", "MediaPipe", "TailwindCSS"],
       image: "Badminton.png",
@@ -18,8 +22,10 @@ const Projects: React.FC = () => {
       status: "Completed",
       timeline: "Sep 2024 - Present",
       team: "Solo Project",
-      github: "https://github.com/Subaashini27/badminton-injury-prediction",
-      demo: "https://subaashini27.github.io/badminton-injury-prediction/",
+      github: "https://github.com/Subaashini27/-badminton-injury-prediction",
+      demo: "https://www.badminton-injury.live/",
+      demoVideo: "",
+      
       features: [
         "Real-time computer vision with MediaPipe integration",
         "RESTful API design with Express.js backend",
@@ -30,20 +36,30 @@ const Projects: React.FC = () => {
       ],
       impact: "Potential to reduce sports injuries by 30-40% through predictive analytics",
       recognition: "Final Year Project - Expected Excellence Award"
+    ,
+      caseStudy: {
+        why: "Reduce badminton overuse injuries by giving athletes and coaches real-time risk signals without expensive hardware or wearables.",
+        solution: "Browser-based pose estimation using MediaPipe MoveNet and TensorFlow.js; Node/Express API with MySQL for session storage; role-based dashboards for athletes/coaches with real-time charts and threshold-based risk flags.",
+        role: "Solo developer: requirements, architecture, React/TypeScript frontend, Node/Express backend, DB schema, deployment, and CI.",
+        status: "Completed FYP; live demo available; recognized at competitions; next: run a small pilot with players/coaches."
+      }
     },
     {
       id: 2,
-      title: "Rainwater Harvesting Calculator   ",
+      title: "Rainwater Harvesting Calculator",
       subtitle: "Hackathon Project • Data-Driven Web Application",
       description: "Full-stack web application for rainwater harvesting optimization with real-time weather API integration and interactive data visualization.",
+      outcome: " Pulls live weather APIs.",
+      badges: [],
       fullDescription: "A modern web application built with React.js frontend and Node.js backend, featuring real-time API integration with OpenWeatherMap. Implements advanced data processing algorithms for CSV parsing and analysis, interactive charts with Recharts library, and responsive design. The application processes historical rainfall data to provide intelligent recommendations and ROI calculations.",
       tech: ["React.js", "Node.js", "Express.js", "Recharts", "REST APIs", "CSV Processing", "Data Visualization"],
       image: "Calculator.jpg",
-      github: "https://github.com/Subaashini27/rainwater-harvesting-calculator",
+      github: "https://github.com/Subaashini27/rainwater-harvesting-optimizer",
       
       category: "Sustainability",
       status: "Completed",
       timeline: "April 2025",
+      demoVideo: "",
       features: [
         "RESTful API integration with OpenWeatherMap",
         "Advanced data processing and CSV parsing",
@@ -54,21 +70,30 @@ const Projects: React.FC = () => {
       ],
       impact: "Helps optimize water conservation efforts across Malaysia",
       recognition: "JomHack VarsityHack 2025 Participant"
+    ,
+      caseStudy: {
+        why: "Help households and facilities estimate rainwater capture potential and ROI to support water conservation decisions.",
+        solution: "Combine historical CSV data with OpenWeatherMap API; calculate catchment, runoff, and storage needs; present insights with interactive charts and a responsive UI.",
+        role: "Full-stack implementation: React frontend, Node/Express backend, data processing, charting, and API integration.",
+        status: "Hackathon project completed; next: add mobile layout and deploy a guided calculator for non-technical users."
+      }
     },
     {
       id: 3,
-      title: "Islamic Microfinance Web Platform",
+      title: "Waqf Sukuk Platform",
       subtitle: "Hackathon Project • FinTech Web Application",
       description: "Modern web application for Islamic microfinancing with Material-UI design system, featuring risk assessment algorithms and financial tracking.",
+      outcome: "Promotes financial inclusion while adhering to Islamic finance principles",
+      badges: [],
       fullDescription: "A sophisticated web application built with React.js and Material-UI, implementing complex financial algorithms and data visualization. Features include user authentication, financial dashboard with real-time calculations, risk assessment algorithms, and comprehensive data management. The application demonstrates advanced React patterns, state management, and integration with financial APIs.",
       tech: ["React.js", "Material-UI", "JavaScript", "Financial APIs", "Data Visualization", "Algorithm Design"],
       image: "Waqf-Sukuk.jpg",
       github: "https://github.com/Subaashini27/waqf-sukuk-platform",
-      demo: "https://waqf-sukuk-platform.vercel.app/",
       category: "FinTech",
       status: "Completed",
       timeline: "March 2025",
-      team: "Solo Participant",
+      demoVideo: "",
+    
       features: [
         "Complex financial calculation algorithms",
         "Material-UI component library implementation",
@@ -79,6 +104,13 @@ const Projects: React.FC = () => {
       ],
       impact: "Promotes financial inclusion while adhering to Islamic finance principles",
       recognition: "UM Hackathon 2025 Participant"
+    ,
+      caseStudy: {
+        why: "Explore a Sharia-compliant microfinancing flow for small borrowers and improve transparency around risks and repayments.",
+        solution: "React + Material UI app with financial calculators, risk heuristics, and dashboards; integrates with mock financial APIs for data flows.",
+        role: "Frontend lead and integrator: UI design system, state management, API adapters, and data visualization.",
+        status: "Hackathon prototype; next: validate assumptions with domain mentors and connect to a sandbox API."
+      }
     }
   ];
 
@@ -87,8 +119,25 @@ const Projects: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.1
       }
+    }
+  };
+
+  // (removed unused cardVariants)
+
+  const filterVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.3 }
+    },
+    hover: {
+      scale: 1.05,
+      y: -2,
+      transition: { duration: 0.2 }
     }
   };
 
@@ -102,8 +151,37 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-24 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-6">
+    <section id="projects" className="relative py-24 overflow-hidden">
+      {/* Enhanced Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-primary-900/10" />
+      
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <motion.div
+            key={`bg-element-${index}`}
+            className="absolute w-64 h-64 rounded-full opacity-5"
+            style={{
+              background: `linear-gradient(45deg, ${index % 3 === 0 ? '#3b82f6' : index % 3 === 1 ? '#10b981' : '#f97316'}, transparent)`,
+              left: `${10 + index * 15}%`,
+              top: `${20 + (index % 2) * 60}%`,
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
+              opacity: [0.05, 0.1, 0.05],
+            }}
+            transition={{
+              duration: 15 + index * 2,
+              repeat: Infinity,
+              ease: "linear",
+              delay: index * 2,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -111,64 +189,223 @@ const Projects: React.FC = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-7xl mx-auto"
         >
-          {/* Professional Header */}
-          <motion.div variants={itemVariants} className="text-center mb-20">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full mb-6">
-              <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Portfolio</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-              Featured 
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Projects</span>
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-8"></div>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Full-stack applications and AI-powered solutions demonstrating modern software engineering practices
-            </p>
+          {/* Enhanced Professional Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-center mb-20"
+          >
+            <motion.div 
+              className="inline-flex items-center px-8 py-4 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-md rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 shadow-xl mb-10"
+              whileHover={{ scale: 1.05, y: -2 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              >
+                <Trophy className="text-accent-500 mr-4" size={24} />
+              </motion.div>
+              <span className="text-base font-bold text-neutral-700 dark:text-neutral-300 tracking-wide">
+                Featured Projects & Achievements
+              </span>
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Star className="ml-4 text-secondary-500" size={20} />
+              </motion.div>
+            </motion.div>
+            
+            <motion.h2 
+              className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 tracking-tight"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="text-neutral-900 dark:text-white">My </span>
+              <motion.span 
+                className="bg-gradient-to-r from-primary-600 via-secondary-500 to-accent-500 bg-clip-text text-transparent"
+                animate={{ backgroundPosition: ['0%', '100%', '0%'] }}
+                transition={{ duration: 5, repeat: Infinity }}
+              >
+                Portfolio
+              </motion.span>
+            </motion.h2>
+            
+            <motion.p 
+              className="text-xl md:text-2xl lg:text-3xl text-neutral-600 dark:text-neutral-400 leading-relaxed font-body max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Showcasing innovative solutions across AI/ML, web development, and sustainability. 
+              Each project demonstrates technical excellence and real-world impact.
+            </motion.p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
+          {/* Enhanced Project Filters */}
+          <motion.div 
+            variants={itemVariants} 
+            className="flex flex-wrap justify-center gap-6 mb-20"
+          >
+            {filters.map((filter, index) => (
+              <motion.button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                variants={filterVariants}
+                whileHover="hover"
+                whileTap={{ scale: 0.95 }}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: index * 0.1 }}
+                className={`group relative px-8 py-4 rounded-2xl font-bold text-base transition-all duration-500 overflow-hidden ${
+                  activeFilter === filter
+                    ? 'bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 text-white shadow-2xl shadow-primary-500/30'
+                    : 'bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg text-neutral-600 dark:text-neutral-400 hover:text-white border border-primary-200/30 dark:border-primary-700/30 shadow-xl hover:shadow-2xl hover:shadow-primary-500/20'
+                }`}
+              >
+                {activeFilter !== filter && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-primary-600/25 via-secondary-500/20 to-primary-700/25 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    whileHover={{ scale: 1.1 }}
+                  />
+                )}
+                
+                {activeFilter === filter && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-primary-700 via-secondary-600 to-primary-800"
+                    animate={{ backgroundPosition: ['0%', '100%', '0%'] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                  />
+                )}
+                
+                <span className="relative z-10 flex items-center gap-2">
+                  {filter === 'All' && <Filter size={18} />}
+                  {filter === 'AI/ML' && <Award size={18} />}
+                  {filter === 'Web Development' && <Code size={18} />}
+                  {filter === 'Sustainability' && <Star size={18} />}
+                  {filter === 'Mobile' && <Eye size={18} />}
+                  {filter}
+                </span>
+                
+                {activeFilter === filter && (
+                  <motion.div
+                    className="absolute -inset-1 bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 rounded-2xl opacity-40 blur-sm"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                )}
+              </motion.button>
+            ))}
+          </motion.div>
+
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-10">
+            {projects
+              .filter(project => activeFilter === 'All' || project.category === activeFilter)
+              .map((project) => (
               <motion.div
                 key={project.id}
                 variants={itemVariants}
-                whileHover={{ y: -8 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 dark:border-gray-700"
+                whileHover={{ y: -12, scale: 1.02 }}
+                className="bg-white dark:bg-neutral-800 rounded-2xl shadow-medium hover:shadow-large transition-all duration-500 overflow-hidden group border border-neutral-200 dark:border-neutral-700"
               >
-                <div className="relative overflow-hidden">
-                  <img
+                {/* Animated Background Glow */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 via-secondary-500/20 to-accent-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    rotate: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                
+                <div className="relative overflow-hidden rounded-t-3xl">
+                  <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-72 object-cover object-center transition-transform duration-700"
+                    whileHover={{ scale: 1.15, rotate: 2 }}
                   />
                   
-                  {/* Status and Category Badges */}
-                  <div className="absolute top-4 left-4 right-4 flex justify-between">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
-                      project.status === 'Completed' 
-                        ? 'bg-green-100/90 text-green-800 dark:bg-green-900/50 dark:text-green-300'
-                        : 'bg-blue-100/90 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300'
-                    }`}>
-                      {project.status}
-                    </span>
-                    <span className="px-3 py-1 bg-black/70 text-white rounded-full text-xs font-semibold backdrop-blur-sm">
+                  {/* Enhanced Status and Category Badges */}
+                  <div className="absolute top-6 left-6 right-6 flex justify-between">
+                    <div className="flex flex-col gap-3">
+                      <motion.span 
+                        className={`px-5 py-3 rounded-2xl text-sm font-bold backdrop-blur-md shadow-xl border border-white/30 ${
+                          project.status === 'Completed' 
+                            ? 'bg-secondary-100/90 text-secondary-800 dark:bg-secondary-900/80 dark:text-secondary-200'
+                            : 'bg-primary-100/90 text-primary-800 dark:bg-primary-900/80 dark:text-primary-200'
+                        }`}
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {project.status}
+                      </motion.span>
+                      {project.badges.map((badge, idx) => (
+                        <motion.span 
+                          key={idx} 
+                          className="px-4 py-2 bg-gradient-to-r from-secondary-500/90 to-secondary-600/90 text-white rounded-2xl text-sm font-bold backdrop-blur-md shadow-xl shadow-secondary-500/30 border border-white/30"
+                          whileHover={{ scale: 1.05, y: -2 }}
+                          transition={{ duration: 0.2, delay: idx * 0.1 }}
+                          animate={{ 
+                            boxShadow: ['0 4px 20px rgba(217, 70, 239, 0.3)', '0 8px 30px rgba(217, 70, 239, 0.5)', '0 4px 20px rgba(217, 70, 239, 0.3)'] 
+                          }}
+                        >
+                          {badge}
+                        </motion.span>
+                      ))}
+                    </div>
+                    <motion.span 
+                      className="px-5 py-3 bg-gradient-to-r from-neutral-900/90 to-neutral-800/90 text-white rounded-2xl text-sm font-bold backdrop-blur-md shadow-xl border border-white/30"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       {project.category}
-                    </span>
+                    </motion.span>
                   </div>
                   
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="flex space-x-3">
+                  {/* Enhanced Hover Overlay */}
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center backdrop-blur-sm"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  >
+                    <motion.div 
+                      className="flex space-x-6"
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, staggerChildren: 0.1 }}
+                    >
                       {project.demo && (
                         <motion.a
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={{ scale: 1.2, y: -5, rotateY: 15 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-200 shadow-lg"
+                          className="group/btn relative p-5 bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 text-white rounded-2xl shadow-2xl shadow-primary-500/30 backdrop-blur-md border border-white/20 overflow-hidden"
                           title="View Live Demo"
                         >
-                          <Eye size={20} />
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                          />
+                          <Eye size={24} className="relative z-10" />
+                          <motion.span 
+                            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-neutral-900/95 text-white text-sm px-4 py-2 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap font-bold backdrop-blur-md border border-white/20"
+                            initial={{ y: 10, opacity: 0 }}
+                            whileHover={{ y: 0, opacity: 1 }}
+                          >
+                            Live Demo
+                          </motion.span>
                         </motion.a>
                       )}
                       {project.github && (
@@ -176,79 +413,196 @@ const Projects: React.FC = () => {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={{ scale: 1.2, y: -5, rotateY: 15 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-colors duration-200 shadow-lg"
+                          className="group/btn relative p-5 bg-gradient-to-r from-neutral-800 via-primary-900/50 to-neutral-900 text-white rounded-2xl shadow-2xl shadow-primary-500/20 backdrop-blur-md border border-white/20 overflow-hidden"
                           title="View Source Code"
                         >
-                          <Code size={20} />
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-neutral-700 via-primary-800/40 to-neutral-800 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                          />
+                          <Code size={24} className="relative z-10" />
+                          <motion.span 
+                            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-neutral-900/95 text-white text-sm px-4 py-2 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap font-bold backdrop-blur-md border border-white/20"
+                            initial={{ y: 10, opacity: 0 }}
+                            whileHover={{ y: 0, opacity: 1 }}
+                          >
+                            GitHub
+                          </motion.span>
                         </motion.a>
+                      )}
+                      {project.demoVideo && (
+                        <motion.a
+                          href={project.demoVideo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.2, y: -5, rotateY: 15 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="group/btn relative p-5 bg-gradient-to-r from-secondary-600 to-secondary-700 text-white rounded-2xl shadow-2xl shadow-secondary-500/30 backdrop-blur-md border border-white/20 overflow-hidden"
+                          title="Demo Video"
+                        >
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-secondary-500 to-secondary-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                          />
+                          <Play size={24} className="relative z-10" />
+                          <motion.span 
+                            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-neutral-900/95 text-white text-sm px-4 py-2 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap font-bold backdrop-blur-md border border-white/20"
+                            initial={{ y: 10, opacity: 0 }}
+                            whileHover={{ y: 0, opacity: 1 }}
+                          >
+                            Demo Video
+                          </motion.span>
+                        </motion.a>
+                      )}
+                    </motion.div>
+                  </motion.div>
+                </div>
+
+                <div className="relative p-10">
+                  {/* Content Background Glow */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-transparent to-accent-50/50 dark:from-primary-900/20 dark:to-accent-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-b-3xl"
+                  />
+                  
+                  <div className="relative z-10">
+                    {/* Enhanced Project Meta */}
+                    <div className="flex items-center justify-between mb-8">
+                      <motion.span 
+                        className="text-sm text-primary-600 dark:text-primary-400 font-bold uppercase tracking-wider"
+                        whileHover={{ scale: 1.05, x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {project.subtitle}
+                      </motion.span>
+                      <motion.div 
+                        className="flex items-center text-neutral-500 dark:text-neutral-400 text-xs font-medium"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Calendar size={14} className="mr-1" />
+                        {project.timeline}
+                      </motion.div>
+                    </div>
+                    
+                    <motion.h3 
+                      className="font-display text-2xl md:text-3xl font-black text-neutral-900 dark:text-white mb-6 line-clamp-2 leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {project.title}
+                    </motion.h3>
+                    
+                    <motion.p 
+                      className="text-neutral-600 dark:text-neutral-300 mb-8 line-clamp-3 leading-relaxed font-body text-lg"
+                      initial={{ opacity: 0.8 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {project.description}
+                    </motion.p>
+                  
+                  {/* Enhanced Outcome/Metrics */}
+                  <motion.div 
+                    className="mb-8 p-6 bg-gradient-to-r from-secondary-50/80 to-secondary-100/60 dark:from-secondary-900/40 dark:to-secondary-800/30 rounded-2xl border border-secondary-200/50 dark:border-secondary-700/50 backdrop-blur-sm shadow-lg"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="flex items-center mb-3">
+                      <motion.div
+                        className="p-2 bg-secondary-500/20 rounded-xl mr-3"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Award size={18} className="text-secondary-600 dark:text-secondary-400" />
+                      </motion.div>
+                      <span className="text-sm font-bold text-secondary-800 dark:text-secondary-300 uppercase tracking-wide">Impact & Results</span>
+                    </div>
+                    <p className="text-secondary-700 dark:text-secondary-300 text-base leading-relaxed font-medium">
+                      {project.outcome}
+                    </p>
+                  </motion.div>
+                  
+                  {/* Enhanced Tech Stack */}
+                  <div className="mb-8">
+                    <h4 className="text-sm font-bold text-neutral-700 dark:text-neutral-300 mb-4 flex items-center uppercase tracking-wider">
+                      Tech Stack
+                    </h4>
+                    <div className="flex flex-wrap gap-4">
+                      {project.tech.slice(0, 3).map((tech, idx) => (
+                        <motion.span
+                          key={idx}
+                          className="px-5 py-3 bg-gradient-to-r from-neutral-100/80 to-neutral-200/60 dark:from-neutral-700/80 dark:to-neutral-600/60 text-neutral-700 dark:text-neutral-300 rounded-2xl text-sm font-bold hover:from-primary-100 hover:to-primary-200 dark:hover:from-primary-900/40 dark:hover:to-primary-800/40 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 border border-neutral-200/50 dark:border-neutral-600/50 backdrop-blur-sm shadow-md cursor-pointer"
+                          whileHover={{ 
+                            scale: 1.05, 
+                            y: -3,
+                            boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ 
+                            duration: 0.3, 
+                            delay: idx * 0.1,
+                            type: "spring",
+                            stiffness: 300
+                          }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                      {project.tech.length > 3 && (
+                        <motion.span 
+                          className="px-5 py-3 bg-gradient-to-r from-primary-50/80 to-primary-100/60 dark:from-primary-900/40 dark:to-primary-800/30 text-primary-600 dark:text-primary-400 rounded-2xl text-sm font-bold border border-primary-200/50 dark:border-primary-700/50 backdrop-blur-sm shadow-md"
+                          whileHover={{ scale: 1.05, y: -3 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          +{project.tech.length - 3} more
+                        </motion.span>
                       )}
                     </div>
                   </div>
-                </div>
 
-                <div className="p-6">
-                  {/* Project Meta */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
-                      {project.subtitle}
-                    </span>
-                    <div className="flex items-center text-gray-500 dark:text-gray-400 text-xs">
-                      <Calendar size={12} className="mr-1" />
-                      {project.timeline}
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 leading-tight">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.slice(0, 3).map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.tech.length > 3 && (
-                      <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-md text-xs font-medium">
-                        +{project.tech.length - 3} more
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Project Actions */}
-                  <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-700">
+                  {/* Enhanced Project Actions */}
+                  <div className="space-y-6 pt-8 border-t border-neutral-200/50 dark:border-neutral-700/50">
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setSelectedProject(project.id)}
-                      className="text-blue-600 dark:text-blue-400 font-semibold hover:underline flex items-center gap-2"
+                      className="w-full group/btn relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 text-white rounded-2xl font-bold text-base shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 transition-all duration-500 overflow-hidden border border-primary-500/30"
                     >
-                      <Play size={16} />
-                      View Details
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                      />
+                      <motion.div
+                        className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                        animate={{
+                          x: ['-100%', '100%'],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <Play size={20} className="mr-3 relative z-10 group-hover/btn:rotate-12 group-hover/btn:scale-110 transition-all duration-300" />
+                      <span className="relative z-10">View Full Details</span>
                     </motion.button>
                     
-                    <div className="flex space-x-2">
+                    <div className="flex flex-wrap gap-4">
                       {project.demo && (
                         <motion.a
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors duration-200"
-                          title="Live Demo"
+                          whileHover={{ scale: 1.08, y: -5 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="group/btn relative flex-1 flex items-center justify-center px-6 py-3 bg-gradient-to-r from-secondary-600 to-secondary-700 text-white rounded-xl font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-400 overflow-hidden border border-secondary-500/30"
                         >
-                          <ExternalLink size={18} />
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-secondary-500 to-secondary-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                          />
+                          <ExternalLink size={18} className="mr-2 relative z-10 group-hover/btn:rotate-12 transition-transform duration-300" />
+                          <span className="relative z-10">Live Demo</span>
                         </motion.a>
                       )}
                       {project.github && (
@@ -256,17 +610,37 @@ const Projects: React.FC = () => {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-                          title="Source Code"
+                          whileHover={{ scale: 1.08, y: -5 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="group/btn relative flex-1 flex items-center justify-center px-6 py-3 bg-gradient-to-r from-neutral-800 to-neutral-900 text-white rounded-xl font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-400 overflow-hidden border border-neutral-700/50"
                         >
-                          <Github size={18} />
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-neutral-700 to-neutral-800 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                          />
+                          <Github size={18} className="mr-2 relative z-10 group-hover/btn:rotate-12 transition-transform duration-300" />
+                          <span className="relative z-10">Source Code</span>
+                        </motion.a>
+                      )}
+                      {project.demoVideo && (
+                        <motion.a
+                          href={project.demoVideo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.08, y: -5 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="group/btn relative flex-1 flex items-center justify-center px-6 py-3 bg-gradient-to-r from-accent-600 to-accent-700 text-white rounded-xl font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-400 overflow-hidden border border-accent-500/30"
+                        >
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-accent-500 to-accent-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                          />
+                          <Play size={18} className="mr-2 relative z-10 group-hover/btn:rotate-12 transition-transform duration-300" />
+                          <span className="relative z-10">Demo Video</span>
                         </motion.a>
                       )}
                     </div>
                   </div>
                 </div>
+              </div>
               </motion.div>
             ))}
           </div>
@@ -390,6 +764,26 @@ const Projects: React.FC = () => {
                         <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                           {project.fullDescription}
                         </p>
+                        {project.caseStudy && (
+                          <div className="mt-6 grid md:grid-cols-2 gap-6">
+                            <div className="p-5 bg-neutral-50 dark:bg-neutral-700/40 rounded-xl border border-neutral-200/60 dark:border-neutral-700/50">
+                              <h5 className="text-base font-bold text-neutral-800 dark:text-neutral-200 mb-2">Why</h5>
+                              <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">{project.caseStudy.why}</p>
+                            </div>
+                            <div className="p-5 bg-neutral-50 dark:bg-neutral-700/40 rounded-xl border border-neutral-200/60 dark:border-neutral-700/50">
+                              <h5 className="text-base font-bold text-neutral-800 dark:text-neutral-200 mb-2">Solution</h5>
+                              <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">{project.caseStudy.solution}</p>
+                            </div>
+                            <div className="p-5 bg-neutral-50 dark:bg-neutral-700/40 rounded-xl border border-neutral-200/60 dark:border-neutral-700/50">
+                              <h5 className="text-base font-bold text-neutral-800 dark:text-neutral-200 mb-2">My Role</h5>
+                              <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">{project.caseStudy.role}</p>
+                            </div>
+                            <div className="p-5 bg-neutral-50 dark:bg-neutral-700/40 rounded-xl border border-neutral-200/60 dark:border-neutral-700/50">
+                              <h5 className="text-base font-bold text-neutral-800 dark:text-neutral-200 mb-2">Status</h5>
+                              <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">{project.caseStudy.status}</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       {/* Key Features */}
