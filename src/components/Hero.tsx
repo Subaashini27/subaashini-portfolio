@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown, Code2, Terminal, Database, Brain, Award, Download, Send, Sparkles, Zap, Rocket, Star } from 'lucide-react';
+import { Code2, Terminal, Database, Brain, Award, Download, Send, Sparkles, Zap, Rocket, Star } from 'lucide-react';
 import TechOrbit from './TechOrbit';
 
 const Hero: React.FC = () => {
@@ -46,9 +46,7 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const scrollToAbout = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -379,47 +377,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           
-          {/* Enhanced Scroll Indicator */}
-          <motion.div 
-            className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-          >
-            <motion.button
-              onClick={scrollToAbout}
-              whileHover={{ scale: 1.2, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-              className="group relative p-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-neutral-800/90 dark:to-neutral-800/70 backdrop-blur-md rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden"
-              aria-label="Scroll to about section"
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="relative z-10"
-              >
-                <ChevronDown className="text-primary-600 dark:text-primary-400" size={24} />
-              </motion.div>
-              
-              {/* Animated Ring */}
-              <motion.div
-                className="absolute inset-0 border-2 border-primary-500/30 rounded-full"
-                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            </motion.button>
-            
-            {/* Scroll Line */}
-            <motion.div
-              className="w-px h-16 bg-gradient-to-b from-primary-500/50 to-transparent"
-              animate={{ scaleY: [0, 1, 0] }}
-              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-            />
-          </motion.div>
+          
         </div>
       </div>
     </section>
