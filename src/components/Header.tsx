@@ -63,14 +63,14 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
           : 'bg-transparent border-transparent'
       } border-b before:content-[''] before:absolute before:inset-x-0 before:bottom-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary-500/40 before:to-transparent`}
     >
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto pl-2 pr-6 md:px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Professional Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center"
+            className="flex items-center ml-0"
           >
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold tracking-tight">
               <span className="text-gray-900 dark:text-white">Subaashini</span>
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">.dev</span>
             </div>
